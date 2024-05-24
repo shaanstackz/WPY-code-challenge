@@ -5,25 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration Form</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
         .container {
             background: white;
             padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #6e8efb;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+        }
+        .form-control {
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            padding-left: 20px;
+        }
+        .btn-primary {
+            background-color: #6e8efb;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #5a77d4;
+        }
+        #formMessage {
+            margin-top: 20px;
+        }
+        .form-control:focus {
+            border-color: #6e8efb;
+            box-shadow: 0 0 5px rgba(110, 142, 251, 0.5);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="mb-4">User Registration</h2>
+        <h2>User Registration</h2>
         <form id="registrationForm" action="register.php" method="POST">
             <div class="form-group">
                 <label for="firstName">First Name</label>
@@ -129,9 +170,9 @@
                     <option value="USA" class="us-state">USA</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
         </form>
-        <div id="formMessage" class="mt-4"></div>
+        <div id="formMessage"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -143,10 +184,13 @@
                 var province = $('#province').val();
                 var country = $('#country').val();
                 
+                // Validate country based on province selection
                 if ((province === 'AB' || province === 'BC' || province === 'MB' || province === 'NB' || province === 'NL' || province === 'NS' || province === 'ON' || province === 'PE' || province === 'QC' || province === 'SK') && country !== 'Canada') {
                     $('#formMessage').html('<div class="alert alert-danger">Please select Canada for Canadian provinces.</div>');
                     return;
                 }
+                
+                // Validate country based on state selection
                 if ((province !== 'AB' && province !== 'BC' && province !== 'MB' && province !== 'NB' && province !== 'NL' && province !== 'NS' && province !== 'ON' && province !== 'PE' && province !== 'QC' && province !== 'SK') && country !== 'USA') {
                     $('#formMessage').html('<div class="alert alert-danger">Please select USA for American states.</div>');
                     return;
